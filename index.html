@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mooncher — Voucher Platform for Business</title>
+<meta property="og:title" content="Mooncher — Sell vouchers. Grow faster."/>
+<meta property="og:description" content="The B2B SaaS platform that lets any business create, sell and manage digital vouchers in minutes. No coding needed."/>
+<meta property="og:url" content="https://mooncher.com"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://mooncher.com/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Mooncher — Sell vouchers. Grow faster."/>
+<meta name="twitter:description" content="The B2B SaaS platform for digital vouchers. White-label, no commission, ready in 3 minutes."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23041a18'/><circle cx='14' cy='16' r='10' fill='%232dd4bf'/><circle cx='20' cy='12' r='8' fill='%23041a18'/></svg>"/>
+<meta name="description" content="Mooncher is the B2B SaaS platform that lets any business create, sell and manage digital vouchers in minutes."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #041a18;
+  --bg2:      #061f1d;
+  --teal:     #2dd4bf;
+  --teal2:    #0d9488;
+  --teal3:    #065f52;
+  --teal4:    #033d35;
+  --white:    #ffffff;
+  --muted:    rgba(45,212,191,0.5);
+  --glass-bg: rgba(45,212,191,0.07);
+  --glass-border: rgba(45,212,191,0.18);
+  --glass-top: rgba(255,255,255,0.08);
+  --radius:   20px;
+  --radius-sm:12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ORBS ── */
+.orbs {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, var(--c) 0%, transparent 65%);
+  opacity: 0.45;
+}
+.orb1 { width:600px;height:600px; top:-150px;left:-100px; --c:#0d5c52; }
+.orb2 { width:500px;height:500px; bottom:-100px;right:-80px; --c:#0a3d38; }
+.orb3 { width:300px;height:300px; top:40%;left:55%; --c:#1a6b60; opacity:0.25; }
+
+/* ── STARS ── */
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star  { position: absolute; color: var(--teal); font-size: 11px; opacity: 0.4; animation: twinkle 4s ease-in-out infinite; }
+@keyframes twinkle { 0%,100%{opacity:0.4} 50%{opacity:0.1} }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 0;
+  background: rgba(4,26,24,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--glass-border);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+}
+.nav-crescent {
+  width: 36px; height: 36px; border-radius: 50%; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #2dd4bf 0%, #0d9488 50%, #044a42 100%);
+  box-shadow: inset -4px -3px 10px rgba(0,0,0,0.5), inset 3px 3px 7px rgba(255,255,255,0.18), 0 3px 14px rgba(45,212,191,0.4);
+  flex-shrink: 0;
+}
+.nav-crescent::after {
+  content:''; position:absolute; top:-3px; right:-3px;
+  width:27px; height:27px; border-radius:50%; background: #041a18;
+}
+.nav-crescent::before {
+  content:''; position:absolute; top:4px; left:4px;
+  width:14px; height:7px; border-radius:50%;
+  background:rgba(255,255,255,0.2); transform:rotate(-20deg); z-index:2;
+}
+.nav-wordmark { font-family:'Bricolage Grotesque',sans-serif; font-size:22px; font-weight:800; }
+.nav-wordmark span:first-child { color: #fff; }
+.nav-wordmark span:last-child  { color: var(--teal); }
+
+.nav-links { display:flex; align-items:center; gap:32px; }
+.nav-links a {
+  color: rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--teal); }
+
+.lang-toggle {
+  display:flex; align-items:center; gap:2px;
+  background: var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:8px; padding:3px;
+}
+.lang-btn {
+  padding:4px 10px; border-radius:6px; border:none; cursor:pointer;
+  font-size:12px; font-weight:600; font-family:'DM Sans',sans-serif;
+  background:transparent; color:rgba(255,255,255,0.45);
+  transition:all 0.2s;
+}
+.lang-btn.active { background:var(--teal); color:#041a18; }
+
+.nav-cta {
+  background: var(--teal); color: #041a18 !important;
+  padding: 8px 20px; border-radius: 10px; font-weight: 600 !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta:hover { background: #5eead4 !important; transform: translateY(-1px); }
+
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+.hamburger span { width:22px; height:2px; background:var(--teal); border-radius:2px; transition:all 0.3s; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 0 80px;
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background: var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:100px; padding:6px 16px; margin-bottom:24px;
+  font-size:12px; letter-spacing:0.1em; color:var(--teal); font-weight:500;
+}
+.hero-eyebrow::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 {
+  font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(44px,6vw,72px);
+  font-weight:800; line-height:1.0; margin-bottom:24px; letter-spacing:-1.5px;
+}
+.hero h1 .line1 {
+  background: linear-gradient(180deg, #fff 0%, #b2f5ef 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.hero h1 .line2 {
+  background: linear-gradient(180deg, #2dd4bf 0%, #0d9488 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.hero-sub {
+  font-size:18px; color:rgba(255,255,255,0.6); margin-bottom:40px;
+  max-width:480px; line-height:1.7;
+}
+.hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background: var(--teal); color:#041a18;
+  padding:14px 28px; border-radius:12px; font-weight:700;
+  text-decoration:none; font-size:15px; border:none; cursor:pointer;
+  transition:all 0.2s; font-family:'DM Sans',sans-serif;
+  box-shadow: 0 4px 20px rgba(45,212,191,0.35);
+}
+.btn-primary:hover { background:#5eead4; transform:translateY(-2px); box-shadow:0 8px 30px rgba(45,212,191,0.45); }
+
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:rgba(255,255,255,0.75);
+  padding:14px 28px; border-radius:12px; font-weight:500;
+  text-decoration:none; font-size:15px;
+  border:0.5px solid var(--glass-border);
+  transition:all 0.2s; font-family:'DM Sans',sans-serif;
+}
+.btn-ghost:hover { border-color:var(--teal); color:var(--teal); }
+
+.hero-stats {
+  display:flex; gap:32px; margin-top:48px; padding-top:32px;
+  border-top:0.5px solid var(--glass-border);
+}
+.stat-item { display:flex; flex-direction:column; gap:2px; }
+.stat-num { font-family:'Bricolage Grotesque',sans-serif; font-size:28px; font-weight:800; color:var(--teal); }
+.stat-label { font-size:12px; color:rgba(255,255,255,0.45); letter-spacing:0.05em; }
+
+/* ── HERO VISUAL ── */
+.hero-visual { position:relative; display:flex; align-items:center; justify-content:center; }
+
+.voucher-card-main {
+  position:relative; width:100%; max-width:420px;
+  background: linear-gradient(135deg, rgba(45,212,191,0.12) 0%, rgba(13,148,136,0.06) 50%, rgba(4,26,24,0.5) 100%);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border); border-radius:28px;
+  padding:36px 32px; overflow:hidden;
+  box-shadow: inset 0 1px 0 var(--glass-top), 0 32px 80px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(45,212,191,0.08);
+}
+.voucher-card-main::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(45,212,191,0.7) 40%, rgba(255,255,255,0.3) 60%, rgba(45,212,191,0.7) 80%, transparent);
+}
+.vc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+.vc-brand { display:flex; align-items:center; gap:10px; }
+.vc-brand-dot { width:8px;height:8px;border-radius:50%;background:var(--teal); box-shadow:0 0 8px var(--teal); }
+.vc-brand-name { font-size:13px; font-weight:600; color:rgba(255,255,255,0.7); }
+.vc-badge {
+  background:rgba(45,212,191,0.12); border:0.5px solid rgba(45,212,191,0.3);
+  color:var(--teal); font-size:11px; font-weight:600; padding:4px 10px; border-radius:100px;
+  letter-spacing:0.05em;
+}
+
+.vc-moon-big {
+  width:90px; height:90px; border-radius:50%; margin:0 auto 24px;
+  background:linear-gradient(135deg, #2dd4bf 0%, #0d9488 50%, #044a42 100%);
+  position:relative; overflow:hidden;
+  box-shadow: inset -10px -8px 20px rgba(0,0,0,0.55), inset 6px 5px 16px rgba(255,255,255,0.18), 0 8px 32px rgba(45,212,191,0.45);
+}
+.vc-moon-big::after { content:''; position:absolute; top:-6px;right:-6px; width:70px;height:70px; border-radius:50%; background:#041a18; }
+.vc-moon-big::before { content:''; position:absolute; top:8px;left:9px; width:32px;height:16px; border-radius:50%; background:rgba(255,255,255,0.18); transform:rotate(-20deg); z-index:2; }
+
+.vc-amount { text-align:center; margin-bottom:20px; }
+.vc-amount-val { font-family:'Bricolage Grotesque',sans-serif; font-size:42px; font-weight:800; }
+.vc-amount-val span { color:var(--teal); }
+.vc-amount-label { font-size:12px; color:rgba(255,255,255,0.4); letter-spacing:0.1em; margin-top:2px; }
+
+.vc-perforator {
+  display:flex; align-items:center; gap:0; margin:20px -32px;
+  border-top:1px dashed rgba(45,212,191,0.25);
+  position:relative;
+}
+.vc-perforator::before { content:''; position:absolute; left:-10px; top:-10px; width:20px;height:20px; border-radius:50%; background:var(--bg); }
+.vc-perforator::after  { content:''; position:absolute; right:-10px; top:-10px; width:20px;height:20px; border-radius:50%; background:var(--bg); }
+
+.vc-code {
+  text-align:center; margin-top:20px;
+  font-family:'DM Sans',sans-serif; font-size:18px; font-weight:600;
+  letter-spacing:4px; color:rgba(255,255,255,0.8);
+  background:rgba(45,212,191,0.06); border:0.5px solid rgba(45,212,191,0.15);
+  border-radius:10px; padding:10px;
+}
+.vc-expiry { text-align:center; font-size:11px; color:rgba(255,255,255,0.3); margin-top:10px; letter-spacing:0.08em; }
+
+.float-card {
+  position:absolute;
+  background:linear-gradient(135deg, rgba(45,212,191,0.1) 0%, rgba(4,26,24,0.7) 100%);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:0.5px solid var(--glass-border); border-radius:14px;
+  padding:12px 16px;
+  box-shadow: inset 0 1px 0 var(--glass-top), 0 8px 24px rgba(0,0,0,0.35);
+}
+.fc1 { top:-24px; right:-20px; }
+.fc2 { bottom:-20px; left:-24px; }
+.fc-label { font-size:10px; color:rgba(255,255,255,0.4); letter-spacing:0.08em; margin-bottom:2px; }
+.fc-val   { font-size:14px; font-weight:700; color:var(--teal); }
+
+/* ── SECTIONS ── */
+section { padding: 100px 0; }
+.section-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--teal); font-size:12px; font-weight:600; letter-spacing:0.12em;
+  margin-bottom:16px;
+}
+.section-tag::before { content:''; width:24px; height:1px; background:var(--teal); }
+
+h2 {
+  font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(32px,4vw,48px);
+  font-weight:800; line-height:1.1; letter-spacing:-0.5px; margin-bottom:16px;
+}
+h2 .teal {
+  background:linear-gradient(90deg, #2dd4bf, #0d9488);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.section-sub { font-size:17px; color:rgba(255,255,255,0.55); max-width:560px; line-height:1.7; margin-bottom:56px; }
+
+/* ── HOW IT WORKS ── */
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.step-card {
+  position:relative;
+  background:var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:var(--radius); padding:32px 28px; overflow:hidden;
+  transition:transform 0.3s, border-color 0.3s;
+}
+.step-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--glass-top) 50%, transparent);
+}
+.step-card:hover { transform:translateY(-4px); border-color:rgba(45,212,191,0.35); }
+.step-num {
+  font-family:'Bricolage Grotesque',sans-serif; font-size:48px; font-weight:800;
+  color:rgba(45,212,191,0.1); line-height:1; margin-bottom:16px;
+}
+.step-icon {
+  width:48px; height:48px; border-radius:12px; margin-bottom:16px;
+  background:linear-gradient(135deg, rgba(45,212,191,0.15), rgba(13,148,136,0.08));
+  border:0.5px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+.step-title { font-family:'Bricolage Grotesque',sans-serif; font-size:20px; font-weight:700; margin-bottom:10px; }
+.step-text  { font-size:14px; color:rgba(255,255,255,0.55); line-height:1.65; }
+
+/* ── FEATURES ── */
+.features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.feat-card {
+  background:var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:var(--radius); padding:28px; position:relative; overflow:hidden;
+  transition:transform 0.3s, border-color 0.3s;
+}
+.feat-card:hover { transform:translateY(-3px); border-color:rgba(45,212,191,0.3); }
+.feat-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--glass-top) 50%, transparent);
+}
+.feat-card.wide { grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; }
+.feat-icon { font-size:28px; margin-bottom:14px; }
+.feat-title { font-family:'Bricolage Grotesque',sans-serif; font-size:20px; font-weight:700; margin-bottom:8px; }
+.feat-text  { font-size:14px; color:rgba(255,255,255,0.55); line-height:1.65; }
+.feat-tags  { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.feat-tag {
+  font-size:11px; font-weight:600; letter-spacing:0.05em;
+  background:rgba(45,212,191,0.1); border:0.5px solid rgba(45,212,191,0.2);
+  color:var(--teal); padding:4px 10px; border-radius:100px;
+}
+
+/* ── PRICING ── */
+.pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.price-card {
+  background:var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:var(--radius); padding:36px 28px; position:relative; overflow:hidden;
+  transition:transform 0.3s;
+}
+.price-card:hover { transform:translateY(-4px); }
+.price-card.featured {
+  border-color:rgba(45,212,191,0.45);
+  background:linear-gradient(160deg, rgba(45,212,191,0.13) 0%, rgba(13,148,136,0.07) 60%, rgba(4,26,24,0.4) 100%);
+  box-shadow: 0 0 0 0.5px rgba(45,212,191,0.15), 0 24px 60px rgba(0,0,0,0.4);
+}
+.price-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--glass-top) 50%, transparent);
+}
+.price-card.featured::before {
+  background:linear-gradient(90deg, transparent, rgba(45,212,191,0.6) 40%, rgba(255,255,255,0.3) 60%, rgba(45,212,191,0.6) 80%, transparent);
+}
+.price-popular {
+  position:absolute; top:20px; right:20px;
+  background:var(--teal); color:#041a18; font-size:10px; font-weight:700;
+  padding:4px 10px; border-radius:100px; letter-spacing:0.08em;
+}
+.price-tier { font-size:12px; font-weight:600; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px; }
+.price-amount {
+  font-family:'Bricolage Grotesque',sans-serif; font-size:42px; font-weight:800; line-height:1;
+  color:#fff; margin-bottom:4px;
+}
+.price-amount sup { font-size:22px; vertical-align:top; margin-top:6px; color:var(--teal); }
+.price-amount .period { font-size:16px; color:rgba(255,255,255,0.4); font-weight:400; }
+.price-desc { font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:28px; }
+.price-divider { height:0.5px; background:var(--glass-border); margin-bottom:24px; }
+.price-features { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+.price-features li {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:13px; color:rgba(255,255,255,0.65);
+}
+.price-features li::before { content:'✓'; color:var(--teal); font-weight:700; flex-shrink:0; margin-top:1px; }
+.price-features li.off { color:rgba(255,255,255,0.25); }
+.price-features li.off::before { content:'–'; color:rgba(255,255,255,0.2); }
+
+/* ── TEAM ── */
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.team-card {
+  background:var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:var(--radius); padding:32px 24px; text-align:center;
+  transition:transform 0.3s, border-color 0.3s;
+}
+.team-card:hover { transform:translateY(-4px); border-color:rgba(45,212,191,0.3); }
+.team-avatar {
+  width:72px; height:72px; border-radius:50%; margin:0 auto 16px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bricolage Grotesque',sans-serif; font-size:22px; font-weight:800; color:#041a18;
+  background:linear-gradient(135deg, #2dd4bf, #0d9488);
+  box-shadow: 0 4px 20px rgba(45,212,191,0.35);
+}
+.team-name  { font-family:'Bricolage Grotesque',sans-serif; font-size:18px; font-weight:700; margin-bottom:4px; }
+.team-role  { font-size:13px; color:var(--teal); font-weight:500; margin-bottom:10px; }
+.team-bio   { font-size:13px; color:rgba(255,255,255,0.5); line-height:1.6; }
+
+/* ── FAQ ── */
+.faq-list { display:flex; flex-direction:column; gap:12px; max-width:780px; margin:0 auto; }
+.faq-item {
+  background:var(--glass-bg); border:0.5px solid var(--glass-border);
+  border-radius:var(--radius-sm); overflow:hidden;
+}
+.faq-q {
+  width:100%; padding:20px 24px; text-align:left; cursor:pointer;
+  background:transparent; border:none; color:#fff; font-family:'DM Sans',sans-serif;
+  font-size:15px; font-weight:500; display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.faq-q:hover { color:var(--teal); }
+.faq-arrow { color:var(--teal); font-size:18px; transition:transform 0.3s; flex-shrink:0; }
+.faq-item.open .faq-arrow { transform:rotate(45deg); }
+.faq-a {
+  max-height:0; overflow:hidden; transition:max-height 0.35s ease, padding 0.3s;
+  font-size:14px; color:rgba(255,255,255,0.55); padding:0 24px; line-height:1.7;
+}
+.faq-item.open .faq-a { max-height:300px; padding:0 24px 20px; }
+
+/* ── CTA BAND ── */
+.cta-band {
+  position:relative; border-radius:28px; overflow:hidden;
+  background:linear-gradient(135deg, rgba(45,212,191,0.13) 0%, rgba(13,148,136,0.07) 50%, rgba(4,26,24,0.5) 100%);
+  border:1px solid var(--glass-border);
+  padding:64px 48px; text-align:center; margin:0;
+  box-shadow: inset 0 1px 0 var(--glass-top), 0 32px 80px rgba(0,0,0,0.4);
+}
+.cta-band::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(45,212,191,0.7) 40%, rgba(255,255,255,0.3) 60%, rgba(45,212,191,0.7) 80%, transparent);
+}
+.cta-band h2 { margin-bottom:12px; }
+.cta-band p { color:rgba(255,255,255,0.55); margin-bottom:36px; font-size:17px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top:0.5px solid var(--glass-border); padding:48px 0 32px;
+  margin-top:40px;
+}
+.footer-inner { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+.footer-brand p { font-size:14px; color:rgba(255,255,255,0.4); margin-top:12px; max-width:260px; line-height:1.6; }
+.footer-col h4 { font-size:12px; font-weight:600; letter-spacing:0.1em; color:var(--teal); margin-bottom:14px; text-transform:uppercase; }
+.footer-col a { display:block; color:rgba(255,255,255,0.5); text-decoration:none; font-size:14px; margin-bottom:8px; transition:color 0.2s; }
+.footer-col a:hover { color:var(--teal); }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:24px; border-top:0.5px solid var(--glass-border); }
+.footer-copy { font-size:12px; color:rgba(255,255,255,0.3); }
+.footer-legal { display:flex; gap:20px; }
+.footer-legal a { font-size:12px; color:rgba(255,255,255,0.3); text-decoration:none; }
+.footer-legal a:hover { color:var(--teal); }
+
+/* ── MOBILE ── */
+@media (max-width:900px) {
+  .hero-inner { grid-template-columns:1fr; }
+  .hero-visual { display:none; }
+  .steps { grid-template-columns:1fr; }
+  .features-grid { grid-template-columns:1fr; }
+  .feat-card.wide { grid-column:span 1; grid-template-columns:1fr; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .team-grid { grid-template-columns:1fr 1fr; }
+  .footer-inner { grid-template-columns:1fr 1fr; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .nav-links.open { display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:rgba(4,26,24,0.97); backdrop-filter:blur(20px); padding:20px 24px; gap:16px; border-bottom:0.5px solid var(--glass-border); }
+}
+@media (max-width:600px) {
+  .team-grid { grid-template-columns:1fr; }
+  .footer-inner { grid-template-columns:1fr; }
+  .hero-stats { flex-wrap:wrap; gap:20px; }
+  .cta-band { padding:40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="stars">
+  <span class="star" style="top:8%;left:10%;animation-delay:0s">+</span>
+  <span class="star" style="top:5%;right:20%;animation-delay:1.5s;font-size:8px">✦</span>
+  <span class="star" style="top:18%;right:8%;animation-delay:0.8s">+</span>
+  <span class="star" style="top:35%;left:4%;animation-delay:2s;font-size:8px">✦</span>
+  <span class="star" style="top:60%;right:5%;animation-delay:0.4s">+</span>
+  <span class="star" style="top:75%;left:8%;animation-delay:1.2s;font-size:8px">✦</span>
+  <span class="star" style="top:90%;right:15%;animation-delay:0.6s">+</span>
+  <span class="star" style="top:45%;left:50%;animation-delay:1.8s;font-size:7px">✦</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-crescent"></div>
+        <div class="nav-wordmark"><span>moon</span><span>cher</span></div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#how" data-en="How it works" data-cz="Jak to funguje">How it works</a>
+        <a href="#features" data-en="Features" data-cz="Funkce">Features</a>
+        <a href="#pricing" data-en="Pricing" data-cz="Ceník">Pricing</a>
+        <a href="#team" data-en="Team" data-cz="Tým">Team</a>
+        <a href="#faq" data-en="FAQ" data-cz="FAQ">FAQ</a>
+        <a href="#contact" class="nav-cta" data-en="Get started" data-cz="Začít">Get started</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btnEN" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="btnCZ" onclick="setLang('cz')">CZ</button>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow" data-en="B2B Voucher Platform" data-cz="B2B platforma pro vouchery">B2B Voucher Platform</div>
+        <h1>
+          <div class="line1" data-en="Sell vouchers." data-cz="Prodávejte vouchery.">Sell vouchers.</div>
+          <div class="line2" data-en="Grow faster." data-cz="Rostěte rychleji.">Grow faster.</div>
+        </h1>
+        <p class="hero-sub" data-en="Mooncher gives your business a complete digital voucher system — create, sell, and manage gift vouchers in minutes. No coding needed." data-cz="Mooncher dává vašemu podnikání kompletní systém digitálních voucherů — vytvořte, prodávejte a spravujte dárkové poukazy během minut. Bez kódování.">Mooncher gives your business a complete digital voucher system — create, sell, and manage gift vouchers in minutes. No coding needed.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary" data-en="Start free trial →" data-cz="Začít zdarma →">Start free trial →</a>
+          <a href="#how" class="btn-ghost" data-en="See how it works" data-cz="Jak to funguje">See how it works</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">3 min</div>
+            <div class="stat-label" data-en="Setup time" data-cz="Čas na nastavení">Setup time</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">0%</div>
+            <div class="stat-label" data-en="Commission on sales" data-cz="Provize z prodeje">Commission on sales</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label" data-en="Automated delivery" data-cz="Automatické doručení">Automated delivery</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="float-card fc1">
+          <div class="fc-label" data-en="SOLD TODAY" data-cz="PRODÁNO DNES">SOLD TODAY</div>
+          <div class="fc-val">+€1,240</div>
+        </div>
+        <div class="voucher-card-main">
+          <div class="vc-header">
+            <div class="vc-brand">
+              <div class="vc-brand-dot"></div>
+              <div class="vc-brand-name">Royal Spa</div>
+            </div>
+            <div class="vc-badge">GIFT VOUCHER</div>
+          </div>
+          <div class="vc-moon-big"></div>
+          <div class="vc-amount">
+            <div class="vc-amount-val"><span>€</span>150</div>
+            <div class="vc-amount-label" data-en="WELLNESS EXPERIENCE" data-cz="WELLNESS ZÁŽITEK">WELLNESS EXPERIENCE</div>
+          </div>
+          <div class="vc-perforator"></div>
+          <div class="vc-code">MCH-7X4K-2025</div>
+          <div class="vc-expiry" data-en="Valid until: 31. 12. 2025" data-cz="Platnost do: 31. 12. 2025">Valid until: 31. 12. 2025</div>
+        </div>
+        <div class="float-card fc2">
+          <div class="fc-label" data-en="REDEMPTION RATE" data-cz="MÍRA UPLATNĚNÍ">REDEMPTION RATE</div>
+          <div class="fc-val">94.2%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-tag" data-en="HOW IT WORKS" data-cz="JAK TO FUNGUJE">HOW IT WORKS</div>
+    <h2 data-en="Up and running <span class='teal'>in 3 steps</span>" data-cz="Spuštěno <span class='teal'>ve 3 krocích</span>">Up and running <span class="teal">in 3 steps</span></h2>
+    <p class="section-sub" data-en="From zero to selling vouchers online — faster than making a coffee." data-cz="Od nuly k prodeji voucherů online — rychleji než uvaříte kávu.">From zero to selling vouchers online — faster than making a coffee.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">🏢</div>
+        <div class="step-title" data-en="Create your store" data-cz="Vytvořte svůj obchod">Create your store</div>
+        <p class="step-text" data-en="Set up your brand, upload your logo, and configure your voucher types — fixed amounts, experiences, or custom services." data-cz="Nastavte si brand, nahrajte logo a nakonfigurujte typy voucherů — fixní částky, zážitky nebo vlastní služby.">Set up your brand, upload your logo, and configure your voucher types — fixed amounts, experiences, or custom services.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔗</div>
+        <div class="step-title" data-en="Embed or share" data-cz="Vložte nebo sdílejte">Embed or share</div>
+        <p class="step-text" data-en="Add the buy button to your website, share your unique link on social media, or connect to your existing booking system via API." data-cz="Přidejte tlačítko nákupu na web, sdílejte unikátní odkaz na sociálních sítích nebo napojte na existující rezervační systém přes API.">Add the buy button to your website, share your unique link on social media, or connect to your existing booking system via API.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <div class="step-title" data-en="Sell &amp; automate" data-cz="Prodávejte &amp; automatizujte">Sell &amp; automate</div>
+        <p class="step-text" data-en="Customers pay, receive their digital voucher instantly, and you get notified. Redemption tracking and analytics all in one dashboard." data-cz="Zákazníci zaplatí, okamžitě obdrží digitální voucher a vy dostanete notifikaci. Sledování uplatnění a analytika vše na jednom místě.">Customers pay, receive their digital voucher instantly, and you get notified. Redemption tracking and analytics all in one dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-tag" data-en="FEATURES" data-cz="FUNKCE">FEATURES</div>
+    <h2 data-en="Everything you need <span class='teal'>to sell smarter</span>" data-cz="Vše co potřebujete <span class='teal'>k chytřejšímu prodeji</span>">Everything you need <span class="teal">to sell smarter</span></h2>
+    <p class="section-sub" data-en="Mooncher is a complete white-label voucher infrastructure for businesses of all sizes." data-cz="Mooncher je kompletní white-label voucherová infrastruktura pro firmy všech velikostí.">Mooncher is a complete white-label voucher infrastructure for businesses of all sizes.</p>
+    <div class="features-grid">
+      <div class="feat-card wide">
+        <div>
+          <div class="feat-icon">🎨</div>
+          <div class="feat-title" data-en="White-label design" data-cz="White-label design">White-label design</div>
+          <p class="feat-text" data-en="Every voucher carries your brand — logo, colors, custom copy. Your customers never see Mooncher. It's 100% yours." data-cz="Každý voucher nese váš brand — logo, barvy, vlastní text. Vaši zákazníci Mooncher nikdy neuvidí. Je to 100% vaše.">Every voucher carries your brand — logo, colors, custom copy. Your customers never see Mooncher. It's 100% yours.</p>
+          <div class="feat-tags">
+            <span class="feat-tag">Custom domain</span>
+            <span class="feat-tag">Brand colors</span>
+            <span class="feat-tag">Custom emails</span>
+            <span class="feat-tag">PDF + Wallet</span>
+          </div>
+        </div>
+        <div style="background:var(--glass-bg);border:0.5px solid var(--glass-border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="height:10px;border-radius:5px;background:linear-gradient(90deg,var(--teal),var(--teal2));width:70%"></div>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,0.08);width:90%"></div>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,0.08);width:60%"></div>
+          <div style="margin-top:8px;height:60px;border-radius:10px;background:linear-gradient(135deg,rgba(45,212,191,0.15),rgba(13,148,136,0.05));border:0.5px solid var(--glass-border);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;background:linear-gradient(90deg,#2dd4bf,#0d9488);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">YOUR BRAND</span>
+          </div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💳</div>
+        <div class="feat-title" data-en="Stripe payments" data-cz="Stripe platby">Stripe payments</div>
+        <p class="feat-text" data-en="Accept cards, Apple Pay, Google Pay and 30+ local methods. Money lands directly in your Stripe account." data-cz="Přijímejte karty, Apple Pay, Google Pay a 30+ lokálních metod. Peníze přicházejí přímo na váš Stripe účet.">Accept cards, Apple Pay, Google Pay and 30+ local methods. Money lands directly in your Stripe account.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title" data-en="Real-time analytics" data-cz="Analytika v reálném čase">Real-time analytics</div>
+        <p class="feat-text" data-en="Track sales, redemptions, revenue and customer behavior in one clean dashboard. Export CSV anytime." data-cz="Sledujte prodeje, uplatnění, příjmy a chování zákazníků na jednom přehledném dashboardu. Export CSV kdykoliv.">Track sales, redemptions, revenue and customer behavior in one clean dashboard. Export CSV anytime.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔌</div>
+        <div class="feat-title" data-en="REST API + Webhooks" data-cz="REST API + Webhooky">REST API + Webhooks</div>
+        <p class="feat-text" data-en="Connect to your POS, booking engine, or CRM. Webhooks fire on every sale and redemption for seamless automation." data-cz="Napojte se na váš POS, rezervační engine nebo CRM. Webhooky se spouštějí při každém prodeji a uplatnění.">Connect to your POS, booking engine, or CRM. Webhooks fire on every sale and redemption for seamless automation.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <div class="feat-title" data-en="Wallet cards" data-cz="Wallet karty">Wallet cards</div>
+        <p class="feat-text" data-en="Vouchers delivered as Apple Wallet &amp; Google Wallet passes — always accessible on the customer's phone, even offline." data-cz="Vouchery doručeny jako Apple Wallet a Google Wallet průkazy — vždy přístupné na telefonu zákazníka, i offline.">Vouchers delivered as Apple Wallet &amp; Google Wallet passes — always accessible on the customer's phone, even offline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-tag" data-en="PRICING" data-cz="CENÍK">PRICING</div>
+    <h2 data-en="Simple, <span class='teal'>transparent pricing</span>" data-cz="Jednoduché, <span class='teal'>transparentní ceny</span>">Simple, <span class="teal">transparent pricing</span></h2>
+    <p class="section-sub" data-en="No hidden fees. No commission on your sales. Just a flat monthly subscription." data-cz="Žádné skryté poplatky. Žádná provize z prodeje. Jen fixní měsíční předplatné.">No hidden fees. No commission on your sales. Just a flat monthly subscription.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier" data-en="STARTER" data-cz="STARTER">STARTER</div>
+        <div class="price-amount"><sup>€</sup>29<span class="period" data-en="/mo" data-cz="/měs">/mo</span></div>
+        <div class="price-desc" data-en="Perfect for small businesses getting started" data-cz="Ideální pro malé firmy začínající s vouchery">Perfect for small businesses getting started</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-en="Up to 100 vouchers/month" data-cz="Až 100 voucherů/měsíc">Up to 100 vouchers/month</li>
+          <li data-en="White-label branding" data-cz="White-label branding">White-label branding</li>
+          <li data-en="Stripe payments" data-cz="Stripe platby">Stripe payments</li>
+          <li data-en="Email delivery" data-cz="Doručení emailem">Email delivery</li>
+          <li data-en="Basic analytics" data-cz="Základní analytika">Basic analytics</li>
+          <li class="off" data-en="API access" data-cz="API přístup">API access</li>
+          <li class="off" data-en="Wallet cards" data-cz="Wallet karty">Wallet cards</li>
+        </ul>
+        <a href="#contact" class="btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-cz="Začít">Get started</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-popular" data-en="MOST POPULAR" data-cz="NEJOBLÍBENĚJŠÍ">MOST POPULAR</div>
+        <div class="price-tier" data-en="BUSINESS" data-cz="BUSINESS">BUSINESS</div>
+        <div class="price-amount"><sup>€</sup>79<span class="period" data-en="/mo" data-cz="/měs">/mo</span></div>
+        <div class="price-desc" data-en="For growing businesses with higher volume" data-cz="Pro rostoucí firmy s vyšším objemem">For growing businesses with higher volume</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-en="Up to 1,000 vouchers/month" data-cz="Až 1 000 voucherů/měsíc">Up to 1,000 vouchers/month</li>
+          <li data-en="White-label branding" data-cz="White-label branding">White-label branding</li>
+          <li data-en="Stripe payments" data-cz="Stripe platby">Stripe payments</li>
+          <li data-en="Email + SMS delivery" data-cz="Email + SMS doručení">Email + SMS delivery</li>
+          <li data-en="Advanced analytics" data-cz="Pokročilá analytika">Advanced analytics</li>
+          <li data-en="Full API + Webhooks" data-cz="Plné API + Webhooky">Full API + Webhooks</li>
+          <li data-en="Apple &amp; Google Wallet" data-cz="Apple a Google Wallet">Apple &amp; Google Wallet</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;" data-en="Get started" data-cz="Začít">Get started</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier" data-en="ENTERPRISE" data-cz="ENTERPRISE">ENTERPRISE</div>
+        <div class="price-amount" style="font-size:32px;padding-top:8px;" data-en="Custom" data-cz="Na míru">Custom</div>
+        <div class="price-desc" data-en="For hotel groups, chains and high-volume operations" data-cz="Pro hotelové skupiny, řetězce a vysokoobjemové provozy">For hotel groups, chains and high-volume operations</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li data-en="Unlimited vouchers" data-cz="Neomezené vouchery">Unlimited vouchers</li>
+          <li data-en="Multi-property management" data-cz="Správa více provozoven">Multi-property management</li>
+          <li data-en="Custom integrations" data-cz="Vlastní integrace">Custom integrations</li>
+          <li data-en="Dedicated account manager" data-cz="Dedikovaný account manager">Dedicated account manager</li>
+          <li data-en="SLA guarantee" data-cz="SLA záruka">SLA guarantee</li>
+          <li data-en="On-premise option" data-cz="On-premise varianta">On-premise option</li>
+          <li data-en="White-glove onboarding" data-cz="Asistované onboardování">White-glove onboarding</li>
+        </ul>
+        <a href="#contact" class="btn-ghost" style="width:100%;justify-content:center;" data-en="Contact sales" data-cz="Kontaktovat obchod">Contact sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-tag" data-en="THE TEAM" data-cz="TÝM">THE TEAM</div>
+    <h2 data-en="Built by people who <span class='teal'>live in fintech</span>" data-cz="Vytvořeno lidmi, kteří <span class='teal'>žijí fintechem</span>">Built by people who <span class="teal">live in fintech</span></h2>
+    <p class="section-sub" data-en="We come from the world of payment gateways, cards and subscriptions. We built the voucher infrastructure we always wished existed." data-cz="Pocházíme ze světa platebních bran, karet a předplatného. Postavili jsme voucherovou infrastrukturu, která nám vždy chyběla.">We come from the world of payment gateways, cards and subscriptions. We built the voucher infrastructure we always wished existed.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">R</div>
+        <div class="team-name">Robert</div>
+        <div class="team-role" data-en="Founder &amp; CTO" data-cz="Zakladatel a CTO">Founder &amp; CTO</div>
+        <p class="team-bio" data-en="Fintech builder with deep focus on payment gateways, payment cards, subscriptions and digital vouchers. 10+ years connecting businesses to modern payment infrastructure across Europe." data-cz="Fintech builder se zaměřením na platební brány, platební karty, předplatné a digitální vouchery. 10+ let napojování firem na moderní platební infrastrukturu v Evropě.">Fintech builder with deep focus on payment gateways, payment cards, subscriptions and digital vouchers. 10+ years connecting businesses to modern payment infrastructure across Europe.</p>
+      </div>
+      <div class="team-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(45,212,191,0.06);border:1px dashed rgba(45,212,191,0.2);">
+          <span style="font-size:26px;color:rgba(45,212,191,0.3);">+</span>
+        </div>
+        <div class="team-name" style="opacity:0.45;" data-en="Coming soon" data-cz="Připravujeme">Coming soon</div>
+        <div class="team-role" style="opacity:0.35;" data-en="Open position" data-cz="Otevřená pozice">Open position</div>
+        <p class="team-bio" style="opacity:0.35;margin-top:10px;" data-en="We're building the team. Reach out if you're passionate about fintech and voucher ecosystems." data-cz="Rozrůstáme tým. Ozvěte se, pokud vás baví fintech a voucherové ekosystémy.">We're building the team. Reach out if you're passionate about fintech and voucher ecosystems.</p>
+      </div>
+      <div class="team-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:rgba(45,212,191,0.06);border:1px dashed rgba(45,212,191,0.2);">
+          <span style="font-size:26px;color:rgba(45,212,191,0.3);">+</span>
+        </div>
+        <div class="team-name" style="opacity:0.45;" data-en="Coming soon" data-cz="Připravujeme">Coming soon</div>
+        <div class="team-role" style="opacity:0.35;" data-en="Open position" data-cz="Otevřená pozice">Open position</div>
+        <p class="team-bio" style="opacity:0.35;margin-top:10px;" data-en="We're building the team. Reach out if you're passionate about fintech and voucher ecosystems." data-cz="Rozrůstáme tým. Ozvěte se, pokud vás baví fintech a voucherové ekosystémy.">We're building the team. Reach out if you're passionate about fintech and voucher ecosystems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-tag" data-en="FAQ" data-cz="ČASTÉ DOTAZY">FAQ</div>
+    <h2 style="text-align:center" data-en="Frequently asked <span class='teal'>questions</span>" data-cz="Časté <span class='teal'>dotazy</span>">Frequently asked <span class="teal">questions</span></h2>
+    <div class="faq-list" style="margin-top:48px">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-en="Do I need technical knowledge to use Mooncher?" data-cz="Potřebuji technické znalosti k použití Mooncheru?">Do I need technical knowledge to use Mooncher?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" data-en="No. Mooncher is designed for non-technical business owners. Setup takes 3 minutes — no coding, no IT department required. If you want to integrate via API, full documentation is available." data-cz="Ne. Mooncher je navržen pro netechnické majitele firem. Nastavení trvá 3 minuty — bez kódování, bez IT oddělení. Pokud chcete integraci přes API, máme k dispozici plnou dokumentaci.">No. Mooncher is designed for non-technical business owners. Setup takes 3 minutes — no coding, no IT department required. If you want to integrate via API, full documentation is available.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-en="Does Mooncher take a commission on voucher sales?" data-cz="Bere si Mooncher provizi z prodeje voucherů?">Does Mooncher take a commission on voucher sales?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" data-en="Never. We charge a flat monthly subscription only. 100% of your sales revenue goes directly to your Stripe account. Stripe's standard processing fees apply (typically 1.5–2.9% + fixed fee)." data-cz="Nikdy. Účtujeme pouze fixní měsíční předplatné. 100 % příjmů z prodeje jde přímo na váš Stripe účet. Platí standardní poplatky Stripe (obvykle 1,5–2,9 % + fixní poplatek).">Never. We charge a flat monthly subscription only. 100% of your sales revenue goes directly to your Stripe account. Stripe's standard processing fees apply (typically 1.5–2.9% + fixed fee).</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-en="Can I use my own domain and branding?" data-cz="Mohu používat vlastní doménu a branding?">Can I use my own domain and branding?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" data-en="Yes. Mooncher is fully white-label. Your customers see only your brand — your logo, your colors, your domain. Mooncher is invisible in the entire customer journey." data-cz="Ano. Mooncher je plně white-label. Vaši zákazníci vidí pouze váš brand — vaše logo, barvy, doménu. Mooncher je v celé zákaznické cestě neviditelný.">Yes. Mooncher is fully white-label. Your customers see only your brand — your logo, your colors, your domain. Mooncher is invisible in the entire customer journey.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-en="Is Mooncher compliant with Czech and EU law?" data-cz="Je Mooncher v souladu s českou a evropskou legislativou?">Is Mooncher compliant with Czech and EU law?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" data-en="Yes. Vouchers on Mooncher are structured as contractual prepayment claims — not e-money — so they fall outside MiCA and PSD2 licensing requirements. We comply with GDPR, Czech Act 186/2016, and consumer protection regulations." data-cz="Ano. Vouchery na Mooncheru jsou strukturovány jako smluvní pohledávky na předplacené plnění — nikoliv elektronické peníze — takže nespadají pod licenční požadavky MiCA a PSD2. Dodržujeme GDPR, zákon 186/2016 Sb. a předpisy na ochranu spotřebitele.">Yes. Vouchers on Mooncher are structured as contractual prepayment claims — not e-money — so they fall outside MiCA and PSD2 licensing requirements. We comply with GDPR, Czech Act 186/2016, and consumer protection regulations.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-en="What happens to unredeemed vouchers?" data-cz="Co se stane s neuplatněnými vouchery?">What happens to unredeemed vouchers?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" data-en="Unredeemed vouchers are tracked automatically. You control the expiry policy — Mooncher sends automated reminders to customers before expiry. Revenue from expired vouchers stays in your account." data-cz="Neuplatněné vouchery jsou automaticky sledovány. Vy kontrolujete politiku vypršení — Mooncher zasílá zákazníkům automatické připomínky před vypršením platnosti. Příjmy z expirovaných voucherů zůstávají na vašem účtu.">Unredeemed vouchers are tracked automatically. You control the expiry policy — Mooncher sends automated reminders to customers before expiry. Revenue from expired vouchers stays in your account.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-band">
+      <div class="section-tag" style="justify-content:center;margin-bottom:20px" data-en="GET STARTED" data-cz="ZAČNĚTE HNED">GET STARTED</div>
+      <h2 data-en="Ready to <span class='teal'>sell your first voucher?</span>" data-cz="Připraveni <span class='teal'>prodat první voucher?</span>">Ready to <span class="teal">sell your first voucher?</span></h2>
+      <p data-en="Join the waitlist and be first to launch when Mooncher opens. Early access includes 3 months Business plan free." data-cz="Přidejte se na waitlist a buďte první, kdo spustí Mooncher. Early access zahrnuje 3 měsíce Business plánu zdarma.">Join the waitlist and be first to launch when Mooncher opens. Early access includes 3 months Business plan free.</p>
+      <form onsubmit="handleSubmit(event)" style="display:flex;gap:12px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center;">
+        <input type="email" id="emailInput" placeholder="your@email.com"
+          style="flex:1;min-width:220px;padding:14px 20px;border-radius:12px;border:0.5px solid var(--glass-border);background:rgba(45,212,191,0.06);color:#fff;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;"
+          onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--glass-border)'"
+        />
+        <button type="submit" class="btn-primary" data-en="Join waitlist →" data-cz="Na waitlist →">Join waitlist →</button>
+      </form>
+      <p id="submitMsg" style="display:none;margin-top:16px;color:var(--teal);font-size:14px;font-weight:500;"></p>
+      <p style="margin-top:20px;margin-bottom:0;font-size:12px;color:rgba(255,255,255,0.3);" data-en="No spam. Unsubscribe anytime. GDPR compliant." data-cz="Žádný spam. Odhlaste se kdykoliv. GDPR v souladu.">No spam. Unsubscribe anytime. GDPR compliant.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:0">
+          <div class="nav-crescent"></div>
+          <div class="nav-wordmark"><span>moon</span><span>cher</span></div>
+        </a>
+        <p data-en="The B2B voucher platform for hotels, spas, and service businesses. Sell smarter, grow faster." data-cz="B2B voucherová platforma pro hotely, spa a servisní firmy. Prodávejte chytřeji, rostěte rychleji.">The B2B voucher platform for hotels, spas, and service businesses. Sell smarter, grow faster.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Product" data-cz="Produkt">Product</h4>
+        <a href="#how" data-en="How it works" data-cz="Jak to funguje">How it works</a>
+        <a href="#features" data-en="Features" data-cz="Funkce">Features</a>
+        <a href="#pricing" data-en="Pricing" data-cz="Ceník">Pricing</a>
+        <a href="#" data-en="API docs" data-cz="API dokumentace">API docs</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-cz="Firma">Company</h4>
+        <a href="#team" data-en="Team" data-cz="Tým">Team</a>
+        <a href="#" data-en="Blog" data-cz="Blog">Blog</a>
+        <a href="#contact" data-en="Contact" data-cz="Kontakt">Contact</a>
+        <a href="#" data-en="Careers" data-cz="Kariéra">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Legal" data-cz="Právní">Legal</h4>
+        <a href="#" data-en="Privacy policy" data-cz="Ochrana soukromí">Privacy policy</a>
+        <a href="#" data-en="Terms of service" data-cz="Podmínky použití">Terms of service</a>
+        <a href="#" data-en="Cookie policy" data-cz="Cookies">Cookie policy</a>
+        <a href="#" data-en="GDPR" data-cz="GDPR">GDPR</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Mooncher · ROOMS MANAGEMENT s.r.o.</div>
+      <div class="footer-legal">
+        <a href="mailto:hello@mooncher.com">hello@mooncher.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnCZ').classList.toggle('active', lang === 'cz');
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const txt = el.getAttribute('data-' + lang);
+    if (!txt) return;
+    if (el.tagName === 'INPUT') { el.placeholder = txt; return; }
+    if (el.innerHTML.includes('<')) { el.innerHTML = txt; }
+    else { el.textContent = txt; }
+  });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  if (!email) return;
+  const msg = document.getElementById('submitMsg');
+  msg.style.display = 'block';
+  msg.textContent = currentLang === 'cz'
+    ? '✓ Přidáni na waitlist! Brzy se ozveme.'
+    : '✓ You\'re on the waitlist! We\'ll be in touch soon.';
+  document.getElementById('emailInput').value = '';
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
